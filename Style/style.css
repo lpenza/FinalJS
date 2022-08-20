@@ -1,0 +1,126 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    /* background-color: green; */
+    /* background-color:yellow; */
+    /* background-color:red; */
+}
+
+
+.contPrin{
+   margin-left:4rem;
+   
+}
+
+header {
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+h2{
+    text-align: center;
+    position: relative;
+    top: 2rem;
+    right: 4rem;
+}
+
+
+main {
+    min-height: 100vh;
+    
+}
+
+
+.nuevosIngresos {
+    margin-top: 4rem;
+    display: flex;
+    gap: 6rem;
+
+}
+
+.inputGastos {
+    max-width: 20%;
+}
+
+.nuevoGasto {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+    background-color: whitesmoke;
+    border: 1px black solid;
+    border-radius: 4%;
+}
+
+
+.gastos {
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+    min-width: 50%;
+    padding: 2rem;
+}
+
+.grafico{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+
+.btn{
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    padding:0.5rem;
+}
+
+
+
+/* semaforo */
+
+
+.semaforo{
+    width:90px;
+    height:200px;
+    border:1px solid black;
+    border-radius:10px;
+    position: absolute;
+    top:50px;
+    right: 50px;
+    background-color: rgba(0, 0, 0, 0.692);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.luzVerde{
+    background-color: green;
+    width:60px;
+    height: 60px;
+    border: 2px solid white;
+    border-radius: 50%;
+  
+}
+
+.luzAmarillo{
+    /* background-color: yellow; */
+    width:60px;
+    height: 60px;
+    border: 2px solid white;
+    border-radius: 50%;
+
+}
+
+.luzRojo{
+    /* background-color: red; */
+    width:60px;
+    height: 60px;
+    border: 2px solid white;
+    border-radius: 50%;
+}

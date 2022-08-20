@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="Style/style.css">
+    <title>Control de Gastos</title>
+</head>
+
+<body>
+    <header>
+        <h1>CONTROL DE GASTOS</h1>
+        <div class="semaforo">
+            <div class="luzVerde"></div>
+            <div class="luzAmarillo"></div>
+            <div class="luzRojo"></div>
+        </div>
+    </header>
+    <main>
+        <div class="contPrin">
+            <h2>Todo se ve bien</h2>
+            <div class="nuevosIngresos">
+                <div class="inputGastos">
+                    <label class="form-label mt-4">Ingresos</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    </div>
+                    <div class="nuevoGasto">
+                        <label class="form-label mt-4">Nuevo Gasto</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        </div>
+                        <label class="form-label mt-4">Concepto</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        </div>
+                        <fieldset class="form-group">
+                            <legend class="mt-4">Tipo de Gasto</legend>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1"
+                                    value="option1" checked="">
+                                <label class="form-check-label" for="optionsRadios1">
+                                    Basico
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="optionsRadios2">
+                                    Prescindible
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="optionsRadios2">
+                                    Ahorro
+                                </label>
+                            </div>
+                        </fieldset>
+                        <button type="button" class="btn btn-outline-primary">Agregar</button>
+                    </div>
+
+                </div>
+                <fieldset class="gastos">
+                    <legend>Gastos</legend>
+                    <div class="sugerencia">
+                        <h3>Sugerencia</h3>
+                        <br>
+                        <h3>Fijo: $20000</h3>
+                        <h3>Prescindible: $12000</h3>
+                        <h3>Ahorro: $8000</h3>
+                    </div>
+                    <div class="grafico">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 95%;" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">$ 19000</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">$ 12000</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">$ 8000</div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+    </main>
+    <div class="recomendaciones" id="recomendaciones">
+
+    </div>
+    <script src="script/script.js"></script>
+</body>
+
+</html>
