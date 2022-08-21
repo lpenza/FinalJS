@@ -31,7 +31,7 @@ const setProgress = (progress) => {
     const value = `${progress == 0 ? 0 : a + b}%`;
     radialProgress.style.setProperty("--progress", value);
     radialProgress.innerHTML = value;
-    radialProgress.setAttribute("aria-valuenow", value);
+    // radialProgress.setAttribute("aria-valuenow", value);
 };
 
 const setProgress1 = (progress) => {
@@ -60,7 +60,7 @@ const setProgress2 = (progress) => {
 
 const saldoDisponible = {
     disponibleFijo: 0,
-    disponibleVaribale: 0,
+    disponibleVariable: 0,
     disponibleAhorro: 0
 }
 
@@ -90,17 +90,6 @@ if (localStorage.getItem('gastosFijos')) {//devuelve true si existe/null si no e
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 if (localStorage.getItem('disponibleFijo')) {//devuelve true si existe/null si no existe
     saldoDisponible.disponibleFijo = localStorage.getItem('disponibleFijo')//json. parse pasa de json a objetos
 } else {
@@ -110,13 +99,32 @@ if (localStorage.getItem('disponibleFijo')) {//devuelve true si existe/null si n
 }
 
 
-// if (localStorage.getItem('gastosVariables')) {//devuelve true si existe/null si no existe
-//     tareas = JSON.parse(localStorage.getItem('tareas'))//json. parse pasa de json a objetos
-// } else {
-//     /* si es la primera vez, creo el localstorage */
-//     localStorage.setItem('tareas', JSON.stringify(tareas))//json.strigify pasa de objeto a json
 
-// }
+if (localStorage.getItem('gastosVariables')) {//devuelve true si existe/null si no existe
+    gastosVariables = JSON.parse(localStorage.getItem('gastosVariables'))//json. parse pasa de json a objetos
+    let acumulador=0
+    gastosVariables.forEach((unGAsto)=>{
+        acumulador+=parseInt(unGAsto.valor)
+    })
+    console.log(acumulador)
+    let disponibleVariable = localStorage.getItem('disponibleVariable')
+    setProgress1(calculoPorcentaje(disponibleVariable,acumulador))
+} else {
+    /* si es la primera vez, creo el localstorage */
+    localStorage.setItem('gastosVariables', JSON.stringify(gastosVariables))//json.strigify pasa de objeto a json
+    setProgress1(0)
+}
+
+
+if (localStorage.getItem('disponibleVariable')) {//devuelve true si existe/null si no existe
+    saldoDisponible.disponibleVariable = localStorage.getItem('disponibleVariable')//json. parse pasa de json a objetos
+} else {
+    /* si es la primera vez, creo el localstorage */
+    localStorage.setItem('disponibleVariable', 0)//json.strigify pasa de objeto a json
+
+}
+
+
 
 
 
@@ -153,7 +161,8 @@ ingresos.addEventListener('input', (e) => {
         /* guardar 100 de cada grafico */
         saldoDisponible.disponibleFijo = gastosFijos
         localStorage.setItem('disponibleFijo',gastosFijos)
-        saldoDisponible.disponibleVaribale = gastosVariables
+        saldoDisponible.disponibleVariable = gastosVariables
+        localStorage.setItem('disponibleVariable',gastosVariables)
         saldoDisponible.disponibleAhorro = gastosAhorros
     }
 
@@ -282,9 +291,10 @@ const agregarGasto = (gasto) => {
         case variable:
             gastosVariables.push(gasto)
             gastosActuales.gastadoVaribale += parseInt(gasto.valor)
-            evaluador(saldoDisponible.disponibleVaribale, 'variable')
+            evaluador(saldoDisponible.disponibleVariable, 'variable')
             /* calculo de porcentaje */
-            setProgress1(parseInt(calculoPorcentaje(saldoDisponible.disponibleVaribale, gasto.valor)));
+            console.log(saldoDisponible.disponibleVariable,gasto.valor)
+            setProgress1(parseInt(calculoPorcentaje(saldoDisponible.disponibleVariable, gasto.valor)));
             localStorage.setItem('gastosVariables', JSON.stringify(gastosVariables))
             break;
         case ahorro:
