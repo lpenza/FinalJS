@@ -3,16 +3,17 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     /* background-color: green; */
     /* background-color:yellow; */
     /* background-color:red; */
 }
 
 
-.contPrin{
-   margin-left:4rem;
-   
+.contPrin {
+    margin-left: 4rem;
+
 }
 
 header {
@@ -22,7 +23,7 @@ header {
     justify-content: center;
 }
 
-h2{
+h2 {
     text-align: center;
     position: relative;
     top: 2rem;
@@ -32,7 +33,7 @@ h2{
 
 main {
     min-height: 100vh;
-    
+
 }
 
 
@@ -53,29 +54,35 @@ main {
     padding: 0.5rem;
     background-color: whitesmoke;
     border: 1px black solid;
-    border-radius: 4%;
+    border-radius: 2%;
 }
 
 
 .gastos {
     display: flex;
-    flex-direction: column;
-    gap: 8rem;
+    flex-direction: row;
+    gap: 7.5rem;
     min-width: 50%;
     padding: 2rem;
+    margin-top: 2rem;
 }
 
-.grafico{
+.concepto {
+    padding-left: 0.7rem !important;
+
+}
+
+.grafico {
     display: flex;
     flex-direction: column;
     gap: 2rem;
 }
 
 
-.btn{
+.btn {
     margin-top: 2rem;
     margin-bottom: 0.5rem;
-    padding:0.5rem;
+    padding: 0.5rem;
 }
 
 
@@ -83,13 +90,13 @@ main {
 /* semaforo */
 
 
-.semaforo{
-    width:90px;
-    height:200px;
-    border:1px solid black;
-    border-radius:10px;
+.semaforo {
+    width: 90px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
     position: absolute;
-    top:50px;
+    top: 25px;
     right: 50px;
     background-color: rgba(0, 0, 0, 0.692);
     display: flex;
@@ -99,28 +106,59 @@ main {
     gap: 0.5rem;
 }
 
-.luzVerde{
+.luzVerde {
     background-color: green;
-    width:60px;
+    width: 60px;
     height: 60px;
     border: 2px solid white;
     border-radius: 50%;
-  
+
 }
 
-.luzAmarillo{
+.luzAmarillo {
     /* background-color: yellow; */
-    width:60px;
+    width: 60px;
     height: 60px;
     border: 2px solid white;
     border-radius: 50%;
 
 }
 
-.luzRojo{
+.luzRojo {
     /* background-color: red; */
-    width:60px;
+    width: 60px;
     height: 60px;
     border: 2px solid white;
     border-radius: 50%;
 }
+
+
+
+.RadialProgress, .RadialProgress1, .RadialProgress2{
+    --hue: 220;
+    --holesize: 65%;
+    --track-bg: hsl(233, 34%, 92%);
+    
+    height: 10vmin;
+    width: 10vmin;
+    min-width: 100px;
+    min-height: 100px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    place-items: center;
+    position: relative;
+    font-weight: 700;
+    font-size: max(2vmin, 1.4rem);
+    color: black;
+    border-radius: 50%;
+    z-index:1;
+    background: conic-gradient(
+      hsl(var(--hue) 100% 70%),
+      hsl(var(--hue) 100% 40%),
+      hsl(var(--hue) 100% 70%) var(--progress, 0%),
+      var(--track-bg) var(--progress, 0%) 100%
+    );
+  }
+
+
