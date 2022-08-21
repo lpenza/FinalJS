@@ -80,7 +80,7 @@ if (localStorage.getItem('gastosFijos')) {//devuelve true si existe/null si no e
     gastosFijos.forEach((unGAsto)=>{
         acumulador+=parseInt(unGAsto.valor)
     })
-    let disponibleFijo=saldoDisponible.disponibleFijo = localStorage.getItem('disponibleFijo')
+    let disponibleFijo = localStorage.getItem('disponibleFijo')
     console.log(calculoPorcentaje(disponibleFijo,acumulador))
     setProgress(calculoPorcentaje(disponibleFijo,acumulador))
 } else {
