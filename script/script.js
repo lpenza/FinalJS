@@ -1,7 +1,7 @@
 const ingresos = document.getElementById("ingresos");
 const botonNuevoGasto = document.getElementById("botonNuevoGasto")
 let estadoActual = true
-let estadoLimite = false
+let estadoLimite = true
 
 
 
@@ -61,7 +61,8 @@ const setProgress2 = (progress) => {
 const saldoDisponible = {
     disponibleFijo: 0,
     disponibleVariable: 0,
-    disponibleAhorro: 0
+    disponibleAhorro: 0,
+    disponibleTotal:0
 }
 
 const gastosActuales = {
@@ -72,17 +73,20 @@ const gastosActuales = {
 }
 
 
+if(!(localStorage.getItem('disponibleTotal'))){
+    botonNuevoGasto.disabled =true
+}
+
 
 
 if (localStorage.getItem('gastosFijos')) {//devuelve true si existe/null si no existe
     gastosFijos = JSON.parse(localStorage.getItem('gastosFijos'))//json. parse pasa de json a objetos
-    let acumulador=0
-    gastosFijos.forEach((unGAsto)=>{
-        acumulador+=parseInt(unGAsto.valor)
+    let acumulador = 0
+    gastosFijos.forEach((unGAsto) => {
+        acumulador += parseInt(unGAsto.valor)
     })
     let disponibleFijo = localStorage.getItem('disponibleFijo')
-    console.log(calculoPorcentaje(disponibleFijo,acumulador))
-    setProgress(calculoPorcentaje(disponibleFijo,acumulador))
+    setProgress(calculoPorcentaje(disponibleFijo, acumulador))
 } else {
     /* si es la primera vez, creo el localstorage */
     localStorage.setItem('gastosFijos', JSON.stringify(gastosFijos))//json.strigify pasa de objeto a json
@@ -102,13 +106,12 @@ if (localStorage.getItem('disponibleFijo')) {//devuelve true si existe/null si n
 
 if (localStorage.getItem('gastosVariables')) {//devuelve true si existe/null si no existe
     gastosVariables = JSON.parse(localStorage.getItem('gastosVariables'))//json. parse pasa de json a objetos
-    let acumulador=0
-    gastosVariables.forEach((unGAsto)=>{
-        acumulador+=parseInt(unGAsto.valor)
+    let acumulador = 0
+    gastosVariables.forEach((unGAsto) => {
+        acumulador += parseInt(unGAsto.valor)
     })
-    console.log(acumulador)
     let disponibleVariable = localStorage.getItem('disponibleVariable')
-    setProgress1(calculoPorcentaje(disponibleVariable,acumulador))
+    setProgress1(calculoPorcentaje(disponibleVariable, acumulador))
 } else {
     /* si es la primera vez, creo el localstorage */
     localStorage.setItem('gastosVariables', JSON.stringify(gastosVariables))//json.strigify pasa de objeto a json
@@ -128,6 +131,97 @@ if (localStorage.getItem('disponibleVariable')) {//devuelve true si existe/null 
 
 
 
+if (localStorage.getItem('gastosAhorros')) {//devuelve true si existe/null si no existe
+    gastosAhorros = JSON.parse(localStorage.getItem('gastosAhorros'))//json. parse pasa de json a objetos
+    let acumulador = 0
+    gastosAhorros.forEach((unGAsto) => {
+        acumulador += parseInt(unGAsto.valor)
+    })
+    let disponibleAhorro = localStorage.getItem('disponibleAhorro')
+    setProgress2(calculoPorcentaje(disponibleAhorro, acumulador))
+} else {
+    /* si es la primera vez, creo el localstorage */
+    localStorage.setItem('gastosAhorros', JSON.stringify(gastosAhorros))//json.strigify pasa de objeto a json
+    setProgress2(0)
+}
+
+
+if (localStorage.getItem('disponibleAhorro')) {//devuelve true si existe/null si no existe
+    saldoDisponible.disponibleAhorro = localStorage.getItem('disponibleAhorro')//json. parse pasa de json a objetos
+} else {
+    /* si es la primera vez, creo el localstorage */
+    localStorage.setItem('disponibleAhorro', 0)//json.strigify pasa de objeto a json
+
+}
+
+
+
+if (localStorage.getItem('estadoActual')) {//devuelve true si existe/null si no existe
+    estadoActual = localStorage.getItem('estadoActual')//json. parse pasa de json a objetos
+} else {
+    /* si es la primera vez, creo el localstorage */
+    localStorage.setItem('estadoActual', true)//json.strigify pasa de objeto a json
+
+}
+
+if (localStorage.getItem('estadoLimite')) {//devuelve true si existe/null si no existe
+    estadoLimite = localStorage.getItem('estadoLimite')//json. parse pasa de json a objetos
+} else {
+    /* si es la primera vez, creo el localstorage */
+    localStorage.setItem('estadoLimite', true)//json.strigify pasa de objeto a json
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+const semaforo = (evaluador, estadoLimite) => {
+    let luzRojo = document.getElementById('luzRojo')
+    let luzVerde = document.getElementById('luzVerde')
+    let luzAmarillo = document.getElementById('luzAmarillo')
+    let labelEstado = document.getElementById('labelEstado')
+    console.log(evaluador,estadoLimite)
+    console.log(!evaluador,!estadoLimite)
+    if (evaluador && estadoLimite) {
+        luzRojo.style.setProperty("background-color", 'transparent')
+        luzVerde.style.setProperty("background-color", 'green')
+        luzAmarillo.style.setProperty("background-color", 'transparent')
+        labelEstado.innerText = 'Todo se ve bien'
+    } else if (evaluador && !estadoLimite) {
+        luzRojo.style.setProperty("background-color", 'transparent')
+        luzVerde.style.setProperty("background-color", 'transparent')
+        luzAmarillo.style.setProperty("background-color", 'yellow')
+        labelEstado.innerText = 'Casi F'
+    }
+    else if (!evaluador && !estadoLimite) {
+        luzRojo.style.setProperty("background-color", 'red')
+        luzVerde.style.setProperty("background-color", 'transparent')
+        luzAmarillo.style.setProperty("background-color", 'transparent')
+        labelEstado.innerText = 'F'
+    }
+}
+
+
+
+
+
+
+if (localStorage.getItem('estadoActual') && localStorage.getItem('estadoLimite')) {
+    evalu =  (localStorage.getItem('estadoActual')=='true')
+    estadoAct = (localStorage.getItem('estadoLimite')=='true')
+    console.log(evalu,estadoAct)
+    semaforo(evalu, estadoAct)
+}
+
+
 
 
 
@@ -138,6 +232,9 @@ if (localStorage.getItem('disponibleVariable')) {//devuelve true si existe/null 
 
 
 ingresos.addEventListener('input', (e) => {
+    if((localStorage.getItem('disponibleTotal'))){
+        botonNuevoGasto.disabled =false
+    }
     if (e.target.value === '' || e.target.value == 0) {
         setProgress(0);
         setProgress1(0);
@@ -159,11 +256,15 @@ ingresos.addEventListener('input', (e) => {
         ahorroSugerido.innerText = gastosAhorros
 
         /* guardar 100 de cada grafico */
+        saldoDisponible.disponibleTotal=total
+        localStorage.setItem('disponibleTotal', total)
         saldoDisponible.disponibleFijo = gastosFijos
-        localStorage.setItem('disponibleFijo',gastosFijos)
+        localStorage.setItem('disponibleFijo', gastosFijos)
         saldoDisponible.disponibleVariable = gastosVariables
-        localStorage.setItem('disponibleVariable',gastosVariables)
+        localStorage.setItem('disponibleVariable', gastosVariables)
         saldoDisponible.disponibleAhorro = gastosAhorros
+        localStorage.setItem('disponibleAhorro', gastosAhorros)
+
     }
 
 })
@@ -177,30 +278,7 @@ class Gasto {
 
 }
 
-const semaforo = (evaluador,estadoLimite) => {
-    let luzRojo = document.getElementById('luzRojo')
-    let luzVerde = document.getElementById('luzVerde')
-    let luzAmarillo = document.getElementById('luzAmarillo')
-    let labelEstado = document.getElementById('labelEstado')
-    console.log(evaluador,estadoLimite)
-    if (evaluador && !estadoLimite) {
-        luzRojo.style.setProperty("background-color", 'transparent')
-        luzVerde.style.setProperty("background-color", 'green')
-        labelEstado.innerText = 'Todo se ve bien'
-    }else if(!evaluador&&estadoLimite){
-        luzRojo.style.setProperty("background-color", 'transparent')
-        luzVerde.style.setProperty("background-color", 'transparent')
-        luzAmarillo.style.setProperty("background-color", 'yellow')
-        labelEstado.innerText = 'Casi F'
-    }
-     else if(!evaluador&&!estadoLimite) {
-        luzRojo.style.setProperty("background-color", 'red')
-        luzVerde.style.setProperty("background-color", 'transparent')
-        luzAmarillo.style.setProperty("background-color", 'transparent')
 
-        labelEstado.innerText = 'F'
-    }
-}
 
 
 
@@ -214,59 +292,74 @@ const evaluador = (disponible, tipoGasto) => {
             })
             if (acumulador > disponible) {
                 estadoActual = false
-                estadoLimite=false
-                semaforo(estadoActual,estadoLimite)
+                estadoLimite = false
+                localStorage.setItem('estadoActual', estadoActual)
+                localStorage.setItem('estadoLimite', estadoLimite)
+                semaforo(estadoActual, estadoLimite)
             }
             else if (acumulador === disponible) {
-                estadoActual=false
-                estadoLimite=true
-                semaforo(estadoActual,estadoLimite)
+                estadoActual = true
+                estadoLimite = false
+                localStorage.setItem('estadoActual', estadoActual)
+                localStorage.setItem('estadoLimite', estadoLimite)
+                semaforo(estadoActual, estadoLimite)
             } else {
                 estadoActual = true
-                semaforo(estadoActual,estadoLimite)
+                localStorage.setItem('estadoActual', estadoActual)
+                semaforo(estadoActual, estadoLimite)
 
             }
             break
-            case 'variable':
+        case 'variable':
             gastosVariables.forEach((unGasto) => {
 
                 acumulador += parseInt(unGasto.valor)
             })
             if (acumulador > disponible) {
                 estadoActual = false
-                estadoLimite=false
-                semaforo(estadoActual,estadoLimite)
+                estadoLimite = false
+                localStorage.setItem('estadoActual', estadoActual)
+                localStorage.setItem('estadoLimite', estadoLimite)
+                semaforo(estadoActual, estadoLimite)
             }
             else if (acumulador === disponible) {
-                estadoActual=false
-                estadoLimite=true
-                semaforo(estadoActual,estadoLimite)
+                estadoActual = true
+                estadoLimite = false
+                localStorage.setItem('estadoActual', estadoActual)
+                localStorage.setItem('estadoLimite', estadoLimite)
+                semaforo(estadoActual, estadoLimite)
             } else {
                 estadoActual = true
-                semaforo(estadoActual,estadoLimite)
+                localStorage.setItem('estadoActual', estadoActual)
+                semaforo(estadoActual, estadoLimite)
 
             }
             break
-            case 'ahorro':
-                gastosAhorros.forEach((unGasto) => {
-    
-                    acumulador += parseInt(unGasto.valor)
-                })
-                if (acumulador > disponible) {
-                    estadoActual = false
-                    estadoLimite=false
-                    semaforo(estadoActual,estadoLimite)
-                }
-                else if (acumulador === disponible) {
-                    estadoActual=false
-                    estadoLimite=true
-                    semaforo(estadoActual,estadoLimite)
-                } else {
-                    estadoActual = true
-                    semaforo(estadoActual,estadoLimite)
-    
-                }
-                break
+        case 'ahorro':
+            gastosAhorros.forEach((unGasto) => {
+
+                acumulador += parseInt(unGasto.valor)
+            })
+            if (acumulador > disponible) {
+                estadoActual = false
+                estadoLimite = false
+                localStorage.setItem('estadoActual', estadoActual)
+                localStorage.setItem('estadoLimite', estadoLimite)
+                semaforo(estadoActual, estadoLimite)
+            }
+            else if (acumulador === disponible) {
+                estadoActual = true
+                estadoLimite = false
+                localStorage.setItem('estadoActual',estadoActual)
+                localStorage.setItem('estadoLimite',estadoLimite)
+                semaforo(estadoActual, estadoLimite)
+            } else {
+                estadoActual = true
+                localStorage.setItem('estadoActual',estadoActual)
+                semaforo(estadoActual, estadoLimite)
+
+            }
+            break
     }
 
 
@@ -293,7 +386,6 @@ const agregarGasto = (gasto) => {
             gastosActuales.gastadoVaribale += parseInt(gasto.valor)
             evaluador(saldoDisponible.disponibleVariable, 'variable')
             /* calculo de porcentaje */
-            console.log(saldoDisponible.disponibleVariable,gasto.valor)
             setProgress1(parseInt(calculoPorcentaje(saldoDisponible.disponibleVariable, gasto.valor)));
             localStorage.setItem('gastosVariables', JSON.stringify(gastosVariables))
             break;
@@ -327,17 +419,17 @@ botonNuevoGasto.addEventListener('click', () => {
 
 
 
-radialProgress.addEventListener('click',()=>{
-    
+radialProgress.addEventListener('click', () => {
+
     alert(localStorage.getItem('gastosFijos'))
 })
 
-radialProgress1.addEventListener('click',()=>{
+radialProgress1.addEventListener('click', () => {
     alert(localStorage.getItem('gastosVariables'))
 
 })
 
-radialProgress2.addEventListener('click',()=>{
+radialProgress2.addEventListener('click', () => {
     alert(localStorage.getItem('gastosAhorros'))
 
 })
