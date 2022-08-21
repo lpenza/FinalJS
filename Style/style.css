@@ -135,15 +135,14 @@ main {
 
 
 .RadialProgress, .RadialProgress1, .RadialProgress2{
-    transform: rotate(-90deg);
     --hue: 220;
     /* --holesize: 10%; */
     --track-bg: hsla(240, 100%, 100%, 0.192);
     
-    height: 2vmin;
-    width: 5vmin;
-    width: 18px;
-    height: 500px;
+    height: 10vmin;
+    height: 10vmin;
+    width: 10vmin;
+    min-width: 100px;
     display: grid;
     align-items: center;
     justify-items: center;
@@ -152,9 +151,9 @@ main {
     font-weight: 700;
     font-size: max(2vmin, 1.4rem);
     color: black;
-    border-radius: 20px;
+    border-radius: 50%;
     z-index:1;
-    background: linear-gradient(
+    background: conic-gradient(
         hsl(var(--hue) 100% 70%),
         hsl(var(--hue) 100% 40%),
         hsl(var(--hue) 100% 70%) var(--progress, 0%),
@@ -165,7 +164,7 @@ main {
 
 
 
-  @media only screen and (max-width: 600px) {
+  /* @media only screen and (max-width: 600px) {
     .RadialProgress, .RadialProgress1, .RadialProgress2{
         transform: rotate(0deg);
         height: 10vmin;
@@ -179,4 +178,4 @@ main {
           var(--track-bg) var(--progress, 0%) 100%
         );
     }
-  }
+  } */
