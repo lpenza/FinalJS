@@ -30,7 +30,8 @@ const setProgress = (progress) => {
     /* sumo lo que ya hay al nuevo valor */
     const value = `${progress == 0 ? 0 : a + b}%`;
     radialProgress.style.setProperty("--progress", value);
-    radialProgress.innerHTML = value;
+    const span=document.getElementById('spanProgress')
+    span.innerHTML = value;
     // radialProgress.setAttribute("aria-valuenow", value);
 };
 
@@ -41,7 +42,8 @@ const setProgress1 = (progress) => {
     /* sumo lo que ya hay al nuevo valor */
     const value = `${progress == 0 ? 0 : a + b}%`;
     radialProgress1.style.setProperty("--progress", value);
-    radialProgress1.innerHTML = value;
+    const span=document.getElementById('spanProgress1')
+    span.innerHTML = value;
     radialProgress1.setAttribute("aria-valuenow", value);
 };
 
@@ -53,7 +55,8 @@ const setProgress2 = (progress) => {
     /* sumo lo que ya hay al nuevo valor */
     const value = `${progress == 0 ? 0 : a + b}%`;
     radialProgress2.style.setProperty("--progress", value);
-    radialProgress2.innerHTML = value;
+    const span=document.getElementById('spanProgress2')
+    span.innerHTML = value;
     radialProgress2.setAttribute("aria-valuenow", value);
 };
 
