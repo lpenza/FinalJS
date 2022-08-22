@@ -45,6 +45,24 @@ h2 {
     text-decoration: underline;
 }
 
+.fijoSugerido, .ahorroSugerido > *{
+    background-color:#6099FF ;
+    color: #4C4C4C;
+}
+
+
+.prescindibleSugerido, .ahorroSugerido > *{
+    background-color:#FFC94B ;
+    color: #4C4C4C;
+
+}
+
+.ahorroSugerido, .ahorroSugerido > *{
+    background-color:#008D84 ;
+    color: #4C4C4C;
+
+}
+
 .nuevosIngresos {
     display: grid;
     grid-template-areas:
@@ -153,10 +171,8 @@ h2 {
 }
 
 
-.RadialProgress,
-.RadialProgress1,
-.RadialProgress2 {
-    --hue: 220;
+.RadialProgress{
+    --hue: 212;
     --holesize: 58%;
     --track-bg: hsla(240, 100%, 100%, 0.192);
     height: 10vmin;
@@ -177,6 +193,57 @@ h2 {
             hsl(var(--hue) 100% 70%) var(--progress, 0%),
             var(--track-bg) var(--progress, 0%) 100%);
 }
+
+
+
+.RadialProgress1{
+
+    --hue: 43;
+    --holesize: 58%;
+    --track-bg: hsla(240, 100%, 100%, 0.192);
+    height: 10vmin;
+    height: 10vmin;
+    width: 10vmin;
+    min-width: 100px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    place-items: center;
+    font-weight: 700;
+    font-size: max(2vmin, 1.4rem);
+    color: black;
+    border-radius: 50%;
+    /* z-index: 1; */
+    background: conic-gradient(hsl(var(--hue) 100% 70%),
+            hsl(var(--hue) 100% 40%),
+            hsl(var(--hue) 100% 70%) var(--progress, 0%),
+            var(--track-bg) var(--progress, 0%) 100%);
+}
+
+
+.RadialProgress2 {
+    --hue: 148;
+    --holesize: 58%;
+    --track-bg: hsla(240, 100%, 100%, 0.192);
+    height: 10vmin;
+    height: 10vmin;
+    width: 10vmin;
+    min-width: 100px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    place-items: center;
+    font-weight: 700;
+    font-size: max(2vmin, 1.4rem);
+    color: black;
+    border-radius: 50%;
+    /* z-index: 1; */
+    background: conic-gradient(hsl(var(--hue) 100% 70%),
+            hsl(var(--hue) 100% 30%),
+            hsl(var(--hue) 100% 70%) var(--progress, 0%),
+            var(--track-bg) var(--progress, 0%) 100%);
+}
+
 
 
 
