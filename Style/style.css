@@ -160,10 +160,10 @@ main {
             hsl(var(--hue) 100% 40%),
             hsl(var(--hue) 100% 70%) var(--progress, 0%),
             var(--track-bg) var(--progress, 0%) 100%);
-            mask-image: radial-gradient(
+            /* mask-image: radial-gradient(
                 transparent var(--holesize),
                 black calc(var(--holesize) + 0.5px)
-              );
+              ); */
 }
 
 
