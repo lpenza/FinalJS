@@ -194,18 +194,18 @@ const semaforo = (evaluador, estadoLimite) => {
         luzRojo.style.setProperty("background-color", 'transparent')
         luzVerde.style.setProperty("background-color", 'green')
         luzAmarillo.style.setProperty("background-color", 'transparent')
-        labelEstado.innerText = 'Todo se ve bien'
+        labelEstado.innerText = 'Todo se ve bien!'
     } else if (evaluador && !estadoLimite) {
         luzRojo.style.setProperty("background-color", 'transparent')
         luzVerde.style.setProperty("background-color", 'transparent')
         luzAmarillo.style.setProperty("background-color", 'yellow')
-        labelEstado.innerText = 'Casi F'
+        labelEstado.innerText = 'Es recomendable que revises tus gastos!'
     }
     else if (!evaluador && !estadoLimite) {
         luzRojo.style.setProperty("background-color", 'red')
         luzVerde.style.setProperty("background-color", 'transparent')
         luzAmarillo.style.setProperty("background-color", 'transparent')
-        labelEstado.innerText = 'F'
+        labelEstado.innerText = 'Algo anda mal, deberias revisar tus gastos!'
     }
 }
 
@@ -251,9 +251,9 @@ ingresos.addEventListener('input', (e) => {
         const prescindibleSugerido = document.getElementById('prescindibleSugerido')
         const ahorroSugerido = document.getElementById('ahorroSugerido')
         const fijoSugerido = document.getElementById('fijoSugerido')
-        prescindibleSugerido.innerText = gastosVariables
-        fijoSugerido.innerText = gastosFijos
-        ahorroSugerido.innerText = gastosAhorros
+        prescindibleSugerido.innerText = ` $${gastosVariables}`
+        fijoSugerido.innerText = ` $${gastosFijos}`
+        ahorroSugerido.innerText = ` $${gastosAhorros}`
 
         /* guardar 100 de cada grafico */
         saldoDisponible.disponibleTotal=total
