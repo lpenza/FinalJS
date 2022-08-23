@@ -78,12 +78,14 @@ const gastosActuales = {
 
 
 
-    if ((localStorage.getItem('disponibleTotal') != 0)) {
-        botonLimpiar.disabled = false
+botonNuevoGasto.disabled = true
+botonLimpiar.disabled=true
+debugger
+if ((localStorage.getItem('disponibleTotal') !== 0)) {
+    botonLimpiar.disabled = false
 
-    }
+}
 
-botonNuevoGasto.disabled=true
 
 botonLimpiar.addEventListener('click', () => {
     localStorage.clear()
@@ -285,7 +287,7 @@ ingresos.addEventListener('input', (e) => {
 
 })
 
-ingresos.addEventListener('blur',()=>{
+ingresos.addEventListener('blur', () => {
     window.location.reload()
 
 })
@@ -425,8 +427,8 @@ const agregarGasto = (gasto) => {
 
 
 }
-nuevoGastoValor.addEventListener('input',()=>{
-  nuevoGastoValor.value==''?botonNuevoGasto.disabled=true:botonNuevoGasto.disabled=false
+nuevoGastoValor.addEventListener('input', () => {
+    nuevoGastoValor.value == '' ? botonNuevoGasto.disabled = true : botonNuevoGasto.disabled = false
 })
 
 botonNuevoGasto.addEventListener('click', () => {
