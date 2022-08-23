@@ -77,14 +77,13 @@ const gastosActuales = {
 }
 
 
-if (!(localStorage.getItem('disponibleTotal'))) {
-    botonNuevoGasto.disabled = true
+
     if ((localStorage.getItem('disponibleTotal') != 0)) {
-        botonLimpiar.disabled = true
+        botonLimpiar.disabled = false
 
     }
-}
 
+botonNuevoGasto.disabled=true
 
 botonLimpiar.addEventListener('click', () => {
     localStorage.clear()
@@ -426,6 +425,9 @@ const agregarGasto = (gasto) => {
 
 
 }
+nuevoGastoValor.addEventListener('input',()=>{
+  nuevoGastoValor.value==''?botonNuevoGasto.disabled=true:botonNuevoGasto.disabled=false
+})
 
 botonNuevoGasto.addEventListener('click', () => {
     const nuevoGastoValor = document.getElementById('nuevoGastoValor')
@@ -437,7 +439,6 @@ botonNuevoGasto.addEventListener('click', () => {
     nuevoGastoConcepto.innerText = ''
 
 })
-
 
 
 
