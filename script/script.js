@@ -1,5 +1,6 @@
 const ingresos = document.getElementById("ingresos");
 const botonNuevoGasto = document.getElementById("botonNuevoGasto")
+const botonLimpiar = document.getElementById("botonLimpiar")
 let estadoActual = true
 let estadoLimite = true
 
@@ -30,7 +31,7 @@ const setProgress = (progress) => {
     /* sumo lo que ya hay al nuevo valor */
     const value = `${progress == 0 ? 0 : a + b}%`;
     radialProgress.style.setProperty("--progress", value);
-    const span=document.getElementById('spanProgress')
+    const span = document.getElementById('spanProgress')
     span.innerHTML = value;
     // radialProgress.setAttribute("aria-valuenow", value);
 };
@@ -42,7 +43,7 @@ const setProgress1 = (progress) => {
     /* sumo lo que ya hay al nuevo valor */
     const value = `${progress == 0 ? 0 : a + b}%`;
     radialProgress1.style.setProperty("--progress", value);
-    const span=document.getElementById('spanProgress1')
+    const span = document.getElementById('spanProgress1')
     span.innerHTML = value;
     radialProgress1.setAttribute("aria-valuenow", value);
 };
@@ -55,7 +56,7 @@ const setProgress2 = (progress) => {
     /* sumo lo que ya hay al nuevo valor */
     const value = `${progress == 0 ? 0 : a + b}%`;
     radialProgress2.style.setProperty("--progress", value);
-    const span=document.getElementById('spanProgress2')
+    const span = document.getElementById('spanProgress2')
     span.innerHTML = value;
     radialProgress2.setAttribute("aria-valuenow", value);
 };
@@ -65,7 +66,7 @@ const saldoDisponible = {
     disponibleFijo: 0,
     disponibleVariable: 0,
     disponibleAhorro: 0,
-    disponibleTotal:0
+    disponibleTotal: 0
 }
 
 const gastosActuales = {
@@ -76,9 +77,20 @@ const gastosActuales = {
 }
 
 
-if(!(localStorage.getItem('disponibleTotal'))){
-    botonNuevoGasto.disabled =true
+if (!(localStorage.getItem('disponibleTotal'))) {
+    botonNuevoGasto.disabled = true
+    if ((localStorage.getItem('disponibleTotal') != 0)) {
+        botonLimpiar.disabled = true
+
+    }
 }
+
+
+botonLimpiar.addEventListener('click', () => {
+    localStorage.clear()
+    window.location.reload()
+
+})
 
 
 
@@ -191,17 +203,17 @@ const semaforo = (evaluador, estadoLimite) => {
     let luzVerde = document.getElementById('luzVerde')
     let luzAmarillo = document.getElementById('luzAmarillo')
     let labelEstado = document.getElementById('labelEstado')
-    console.log(evaluador,estadoLimite)
-    console.log(!evaluador,!estadoLimite)
+    console.log(evaluador, estadoLimite)
+    console.log(!evaluador, !estadoLimite)
     if (evaluador && estadoLimite) {
         luzRojo.style.setProperty("background-color", 'transparent')
-        luzVerde.style.setProperty("background-color", 'green')
+        luzVerde.style.setProperty("background-color", '#008D84')
         luzAmarillo.style.setProperty("background-color", 'transparent')
         labelEstado.innerText = 'Todo se ve bien!'
     } else if (evaluador && !estadoLimite) {
         luzRojo.style.setProperty("background-color", 'transparent')
         luzVerde.style.setProperty("background-color", 'transparent')
-        luzAmarillo.style.setProperty("background-color", 'yellow')
+        luzAmarillo.style.setProperty("background-color", '#FFC94B')
         labelEstado.innerText = 'Es recomendable que revises tus gastos!'
     }
     else if (!evaluador && !estadoLimite) {
@@ -218,9 +230,9 @@ const semaforo = (evaluador, estadoLimite) => {
 
 
 if (localStorage.getItem('estadoActual') && localStorage.getItem('estadoLimite')) {
-    evalu =  (localStorage.getItem('estadoActual')=='true')
-    estadoAct = (localStorage.getItem('estadoLimite')=='true')
-    console.log(evalu,estadoAct)
+    evalu = (localStorage.getItem('estadoActual') == 'true')
+    estadoAct = (localStorage.getItem('estadoLimite') == 'true')
+    console.log(evalu, estadoAct)
     semaforo(evalu, estadoAct)
 }
 
@@ -235,8 +247,8 @@ if (localStorage.getItem('estadoActual') && localStorage.getItem('estadoLimite')
 
 
 ingresos.addEventListener('input', (e) => {
-    if((localStorage.getItem('disponibleTotal'))){
-        botonNuevoGasto.disabled =false
+    if ((localStorage.getItem('disponibleTotal'))) {
+        botonNuevoGasto.disabled = false
     }
     if (e.target.value === '' || e.target.value == 0) {
         setProgress(0);
@@ -259,7 +271,7 @@ ingresos.addEventListener('input', (e) => {
         ahorroSugerido.innerText = ` $${gastosAhorros}`
 
         /* guardar 100 de cada grafico */
-        saldoDisponible.disponibleTotal=total
+        saldoDisponible.disponibleTotal = total
         localStorage.setItem('disponibleTotal', total)
         saldoDisponible.disponibleFijo = gastosFijos
         localStorage.setItem('disponibleFijo', gastosFijos)
@@ -267,6 +279,8 @@ ingresos.addEventListener('input', (e) => {
         localStorage.setItem('disponibleVariable', gastosVariables)
         saldoDisponible.disponibleAhorro = gastosAhorros
         localStorage.setItem('disponibleAhorro', gastosAhorros)
+        window.location.reload()
+
 
     }
 
@@ -353,12 +367,12 @@ const evaluador = (disponible, tipoGasto) => {
             else if (acumulador === disponible) {
                 estadoActual = true
                 estadoLimite = false
-                localStorage.setItem('estadoActual',estadoActual)
-                localStorage.setItem('estadoLimite',estadoLimite)
+                localStorage.setItem('estadoActual', estadoActual)
+                localStorage.setItem('estadoLimite', estadoLimite)
                 semaforo(estadoActual, estadoLimite)
             } else {
                 estadoActual = true
-                localStorage.setItem('estadoActual',estadoActual)
+                localStorage.setItem('estadoActual', estadoActual)
                 semaforo(estadoActual, estadoLimite)
 
             }
