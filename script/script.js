@@ -279,12 +279,18 @@ ingresos.addEventListener('input', (e) => {
         localStorage.setItem('disponibleVariable', gastosVariables)
         saldoDisponible.disponibleAhorro = gastosAhorros
         localStorage.setItem('disponibleAhorro', gastosAhorros)
-        window.location.reload()
+
 
 
     }
 
 })
+
+ingresos.addEventListener('blur',()=>{
+    window.location.reload()
+
+})
+
 
 class Gasto {
     constructor(valor, concepto) {
