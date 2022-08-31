@@ -89,7 +89,14 @@ if ((localStorage.getItem('disponibleTotal') !== 0)) {
 
 botonLimpiar.addEventListener('click', () => {
     localStorage.clear()
-    window.location.reload()
+    Toastify({
+        text: "Reinicio Correcto",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+      }).showToast();
+    // window.location.reload()
 
 })
 
@@ -286,6 +293,7 @@ ingresos.addEventListener('input', (e) => {
     }
 
 })
+
 
 ingresos.addEventListener('blur', () => {
     window.location.reload()
