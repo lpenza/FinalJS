@@ -5,6 +5,7 @@ const tipTitulo = document.getElementById("tipTitulo")
 const tipDetalle = document.getElementById("tipDetalle")
 let estadoActual = true
 let estadoLimite = true
+let cantidadTips=0
 
 
 
@@ -12,30 +13,22 @@ let gastosFijos = []
 let gastosVariables = []
 let gastosAhorros = []
 
-
-
-
-
-
-
-
-
+/* Traigo tips del mock */
 const getTips = async () => {
     const response = await fetch('./json/tips.json')
     const tips = await response.json()
+    cantidadTips=Object.keys(tips).length
     return tips
 }
 
-
+/* Muestro un tip random */
 const mostrarTip = () => {
-  let random = Math.floor((Math.random() * (3 - 1 + 1)) + 1)
+  let random = Math.floor((Math.random() * (cantidadTips - 1 + 1)))
+  console.log(random)
   getTips().then(tips=>{
-
     let tipRandom=tips[random]
-
     tipTitulo.innerHTML=tipRandom.titulo
     tipDetalle.innerHTML=tipRandom.detalle
-    
   })
 }
 
