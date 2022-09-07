@@ -1,6 +1,8 @@
 const ingresos = document.getElementById("ingresos");
 const botonNuevoGasto = document.getElementById("botonNuevoGasto")
 const botonLimpiar = document.getElementById("botonLimpiar")
+const tipTitulo = document.getElementById("tipTitulo")
+const tipDetalle = document.getElementById("tipDetalle")
 let estadoActual = true
 let estadoLimite = true
 
@@ -9,6 +11,45 @@ let estadoLimite = true
 let gastosFijos = []
 let gastosVariables = []
 let gastosAhorros = []
+
+
+
+
+
+
+
+
+
+const getTips = async () => {
+    const response = await fetch('./json/tips.json')
+    const tips = await response.json()
+    return tips
+}
+
+
+const mostrarTip = () => {
+  let random = Math.floor((Math.random() * (3 - 1 + 1)) + 1)
+  getTips().then(tips=>{
+
+    let tipRandom=tips[random]
+
+    tipTitulo.innerHTML=tipRandom.titulo
+    tipDetalle.innerHTML=tipRandom.detalle
+    
+  })
+}
+
+
+
+window.addEventListener('load',()=>{
+
+    setInterval('mostrarTip()',1500)
+})
+
+
+
+
+
 
 
 const calculoValor = (valor, porcentaje) => {
@@ -79,8 +120,7 @@ const gastosActuales = {
 
 
 botonNuevoGasto.disabled = true
-botonLimpiar.disabled=true
-debugger
+botonLimpiar.disabled = true
 if ((localStorage.getItem('disponibleTotal') !== 0)) {
     botonLimpiar.disabled = false
 
@@ -93,9 +133,9 @@ botonLimpiar.addEventListener('click', () => {
         text: "Reinicio Correcto",
         className: "info",
         style: {
-          background: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
         }
-      }).showToast();
+    }).showToast();
     // window.location.reload()
 
 })
@@ -295,10 +335,7 @@ ingresos.addEventListener('input', (e) => {
 })
 
 
-ingresos.addEventListener('blur', () => {
-    window.location.reload()
 
-})
 
 
 class Gasto {
