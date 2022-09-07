@@ -24,7 +24,6 @@ const getTips = async () => {
 /* Muestro un tip random */
 const mostrarTip = () => {
   let random = Math.floor((Math.random() * (cantidadTips - 1 + 1)))
-  console.log(random)
   getTips().then(tips=>{
     let tipRandom=tips[random]
     tipTitulo.innerHTML=tipRandom.titulo
@@ -244,8 +243,6 @@ const semaforo = (evaluador, estadoLimite) => {
     let luzVerde = document.getElementById('luzVerde')
     let luzAmarillo = document.getElementById('luzAmarillo')
     let labelEstado = document.getElementById('labelEstado')
-    console.log(evaluador, estadoLimite)
-    console.log(!evaluador, !estadoLimite)
     if (evaluador && estadoLimite) {
         luzRojo.style.setProperty("background-color", 'transparent')
         luzVerde.style.setProperty("background-color", '#008D84')
@@ -273,7 +270,6 @@ const semaforo = (evaluador, estadoLimite) => {
 if (localStorage.getItem('estadoActual') && localStorage.getItem('estadoLimite')) {
     evalu = (localStorage.getItem('estadoActual') == 'true')
     estadoAct = (localStorage.getItem('estadoLimite') == 'true')
-    console.log(evalu, estadoAct)
     semaforo(evalu, estadoAct)
 }
 
