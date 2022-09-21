@@ -5,7 +5,7 @@ const tipTitulo = document.getElementById("tipTitulo")
 const tipDetalle = document.getElementById("tipDetalle")
 let estadoActual = true
 let estadoLimite = true
-let cantidadTips=0
+let cantidadTips = 0
 
 
 
@@ -17,30 +17,27 @@ let gastosAhorros = []
 const getTips = async () => {
     const response = await fetch('./json/tips.json')
     const tips = await response.json()
-    cantidadTips=Object.keys(tips).length
+    cantidadTips = Object.keys(tips).length
     return tips
 }
 
 /* Muestro un tip random */
 const mostrarTip = () => {
-  let random = Math.floor((Math.random() * (cantidadTips - 1 + 1)))
-  getTips().then(tips=>{
-    let tipRandom=tips[random]
-    tipTitulo.innerHTML=tipRandom.titulo
-    tipDetalle.innerHTML=tipRandom.detalle
-  })
+    let random = Math.floor((Math.random() * (cantidadTips - 1 + 1)))
+    getTips().then(tips => {
+        let tipRandom = tips[random]
+        tipTitulo.innerHTML = tipRandom.titulo
+        tipDetalle.innerHTML = tipRandom.detalle
+    })
 }
 
 
 
-window.addEventListener('load',()=>{
+window.addEventListener('load', () => {
 
-    setInterval('mostrarTip()',1500)
+    setInterval('mostrarTip()', 2500)
+
 })
-
-
-
-
 
 
 
@@ -62,11 +59,10 @@ const setProgress = (progress) => {
     let a = progressActual == '' ? 0 : parseInt(progressActual)
     let b = parseInt(progress)
     /* sumo lo que ya hay al nuevo valor */
-    const value = `${progress == 0 ? 0 : a + b}%`;
+    const value = `${progress == 0 || isNaN(progress) ? 0 : a + b}%`;
     radialProgress.style.setProperty("--progress", value);
     const span = document.getElementById('spanProgress')
     span.innerHTML = value;
-    // radialProgress.setAttribute("aria-valuenow", value);
 };
 
 const setProgress1 = (progress) => {
@@ -74,7 +70,7 @@ const setProgress1 = (progress) => {
     let a = progressActual == '' ? 0 : parseInt(progressActual)
     let b = parseInt(progress)
     /* sumo lo que ya hay al nuevo valor */
-    const value = `${progress == 0 ? 0 : a + b}%`;
+    const value = `${progress == 0 || isNaN(progress) ? 0 : a + b}%`;
     radialProgress1.style.setProperty("--progress", value);
     const span = document.getElementById('spanProgress1')
     span.innerHTML = value;
@@ -87,7 +83,7 @@ const setProgress2 = (progress) => {
     let a = progressActual == '' ? 0 : parseInt(progressActual)
     let b = parseInt(progress)
     /* sumo lo que ya hay al nuevo valor */
-    const value = `${progress == 0 ? 0 : a + b}%`;
+    const value = `${progress == 0 || isNaN(progress) ? 0 : a + b}%`;
     radialProgress2.style.setProperty("--progress", value);
     const span = document.getElementById('spanProgress2')
     span.innerHTML = value;
@@ -125,17 +121,23 @@ botonLimpiar.addEventListener('click', () => {
         text: "Reinicio Correcto",
         className: "info",
         style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "green",
+            borderRadius:'5%'
         }
     }).showToast();
-    // window.location.reload()
+
+    setTimeout(() => {
+
+        window.location.reload()
+    }
+        , 2000);
 
 })
 
 
 
 if (localStorage.getItem('gastosFijos')) {//devuelve true si existe/null si no existe
-    gastosFijos = JSON.parse(localStorage.getItem('gastosFijos'))//json. parse pasa de json a objetos
+    gastosFijos = JSON.parse(localStorage.getItem('gastosFijos'))
     let acumulador = 0
     gastosFijos.forEach((unGAsto) => {
         acumulador += parseInt(unGAsto.valor)
@@ -144,23 +146,23 @@ if (localStorage.getItem('gastosFijos')) {//devuelve true si existe/null si no e
     setProgress(calculoPorcentaje(disponibleFijo, acumulador))
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('gastosFijos', JSON.stringify(gastosFijos))//json.strigify pasa de objeto a json
+    localStorage.setItem('gastosFijos', JSON.stringify(gastosFijos))
     setProgress(0)
 }
 
 
 if (localStorage.getItem('disponibleFijo')) {//devuelve true si existe/null si no existe
-    saldoDisponible.disponibleFijo = localStorage.getItem('disponibleFijo')//json. parse pasa de json a objetos
+    saldoDisponible.disponibleFijo = localStorage.getItem('disponibleFijo')
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('disponibleFijo', 0)//json.strigify pasa de objeto a json
+    localStorage.setItem('disponibleFijo', 0)
 
 }
 
 
 
 if (localStorage.getItem('gastosVariables')) {//devuelve true si existe/null si no existe
-    gastosVariables = JSON.parse(localStorage.getItem('gastosVariables'))//json. parse pasa de json a objetos
+    gastosVariables = JSON.parse(localStorage.getItem('gastosVariables'))
     let acumulador = 0
     gastosVariables.forEach((unGAsto) => {
         acumulador += parseInt(unGAsto.valor)
@@ -169,16 +171,16 @@ if (localStorage.getItem('gastosVariables')) {//devuelve true si existe/null si 
     setProgress1(calculoPorcentaje(disponibleVariable, acumulador))
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('gastosVariables', JSON.stringify(gastosVariables))//json.strigify pasa de objeto a json
+    localStorage.setItem('gastosVariables', JSON.stringify(gastosVariables))
     setProgress1(0)
 }
 
 
 if (localStorage.getItem('disponibleVariable')) {//devuelve true si existe/null si no existe
-    saldoDisponible.disponibleVariable = localStorage.getItem('disponibleVariable')//json. parse pasa de json a objetos
+    saldoDisponible.disponibleVariable = localStorage.getItem('disponibleVariable')
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('disponibleVariable', 0)//json.strigify pasa de objeto a json
+    localStorage.setItem('disponibleVariable', 0)
 
 }
 
@@ -187,7 +189,7 @@ if (localStorage.getItem('disponibleVariable')) {//devuelve true si existe/null 
 
 
 if (localStorage.getItem('gastosAhorros')) {//devuelve true si existe/null si no existe
-    gastosAhorros = JSON.parse(localStorage.getItem('gastosAhorros'))//json. parse pasa de json a objetos
+    gastosAhorros = JSON.parse(localStorage.getItem('gastosAhorros'))
     let acumulador = 0
     gastosAhorros.forEach((unGAsto) => {
         acumulador += parseInt(unGAsto.valor)
@@ -196,34 +198,34 @@ if (localStorage.getItem('gastosAhorros')) {//devuelve true si existe/null si no
     setProgress2(calculoPorcentaje(disponibleAhorro, acumulador))
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('gastosAhorros', JSON.stringify(gastosAhorros))//json.strigify pasa de objeto a json
+    localStorage.setItem('gastosAhorros', JSON.stringify(gastosAhorros))
     setProgress2(0)
 }
 
 
 if (localStorage.getItem('disponibleAhorro')) {//devuelve true si existe/null si no existe
-    saldoDisponible.disponibleAhorro = localStorage.getItem('disponibleAhorro')//json. parse pasa de json a objetos
+    saldoDisponible.disponibleAhorro = localStorage.getItem('disponibleAhorro')
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('disponibleAhorro', 0)//json.strigify pasa de objeto a json
+    localStorage.setItem('disponibleAhorro', 0)
 
 }
 
 
 
 if (localStorage.getItem('estadoActual')) {//devuelve true si existe/null si no existe
-    estadoActual = localStorage.getItem('estadoActual')//json. parse pasa de json a objetos
+    estadoActual = localStorage.getItem('estadoActual')
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('estadoActual', true)//json.strigify pasa de objeto a json
+    localStorage.setItem('estadoActual', true)
 
 }
 
 if (localStorage.getItem('estadoLimite')) {//devuelve true si existe/null si no existe
-    estadoLimite = localStorage.getItem('estadoLimite')//json. parse pasa de json a objetos
+    estadoLimite = localStorage.getItem('estadoLimite')
 } else {
     /* si es la primera vez, creo el localstorage */
-    localStorage.setItem('estadoLimite', true)//json.strigify pasa de objeto a json
+    localStorage.setItem('estadoLimite', true)
 
 }
 
@@ -272,15 +274,6 @@ if (localStorage.getItem('estadoActual') && localStorage.getItem('estadoLimite')
     estadoAct = (localStorage.getItem('estadoLimite') == 'true')
     semaforo(evalu, estadoAct)
 }
-
-
-
-
-
-
-
-
-
 
 
 ingresos.addEventListener('input', (e) => {
@@ -480,17 +473,43 @@ botonNuevoGasto.addEventListener('click', () => {
 
 
 radialProgress.addEventListener('click', () => {
+    let total =0
+    gastosFijos.forEach((unGAsto) => {
+        total+=parseInt(unGAsto.valor)
+    }) 
+    Swal.fire({
+        title: 'Gastos Fijos',
+        text:total==0?'No tenes gastos registrados': 'Total $ '+total,
+        confirmButtonText: 'Aceptar'
+      })
 
-    alert(localStorage.getItem('gastosFijos'))
 })
 
 radialProgress1.addEventListener('click', () => {
-    alert(localStorage.getItem('gastosVariables'))
+
+    let total =0
+    gastosVariables.forEach((unGAsto) => {
+        total+=parseInt(unGAsto.valor)
+    }) 
+    Swal.fire({
+        title: 'Gastos Variables',
+        text: total==0?'No tenes gastos registrados': 'Total $ '+total,
+        confirmButtonText: 'Aceptar'
+      })
 
 })
 
 radialProgress2.addEventListener('click', () => {
-    alert(localStorage.getItem('gastosAhorros'))
+
+    let total =0
+    gastosAhorros.forEach((unGAsto) => {
+        total+=parseInt(unGAsto.valor)
+    }) 
+    Swal.fire({
+        title: 'Ahorros',
+        text: total==0?'No tenes gastos registrados': 'Total $ '+total,
+        confirmButtonText: 'Aceptar'
+      })
 
 })
 
